@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS students (
+
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    enrolled_at DATE NOT NULL DEFAULT CURRENT_DATE
+
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    code VARCHAR(100) NOT NULL UNIQUE,
+    credits INT NOT NULL,
+    department VARCHAR(100) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS grades (
+    id BIGSERIAL PRIMARY KEY,
+    student_id BIGINT NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+    course_id BIGINT NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    grade DECIMAL(4,2) NOT NULL CHECK(grade >= 0 AND grade <= 100),
+    semester VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(student_id, course_id, semester)
+);
