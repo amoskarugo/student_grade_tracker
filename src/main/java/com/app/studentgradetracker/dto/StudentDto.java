@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Student {
+public class StudentDto {
 
 
     @NotBlank(message = "name is required")

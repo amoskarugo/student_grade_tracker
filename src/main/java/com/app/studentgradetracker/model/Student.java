@@ -1,15 +1,15 @@
 package com.app.studentgradetracker.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@Builder
 public class Student {
     private Long id;
     private String name;
