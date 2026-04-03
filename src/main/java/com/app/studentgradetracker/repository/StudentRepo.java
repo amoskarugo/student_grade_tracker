@@ -1,14 +1,16 @@
 package com.app.studentgradetracker.repository;
 
-
 import com.app.studentgradetracker.Dao.StudentDao;
-import com.app.studentgradetracker.Mappers.impl.StudentMapper;
-import com.app.studentgradetracker.dto.StudentDto;
 import com.app.studentgradetracker.model.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,9 @@ public class StudentRepo implements StudentDao {
             .enrolled_at(rs.getDate("enrolled_at").toLocalDate())
             .build();
 
+
+
+
     @Override
     public Optional<Student> findById(Long id) {
         String sql = "SELECT * FROM students WHERE id = ?";
@@ -36,17 +41,36 @@ public class StudentRepo implements StudentDao {
     }
 
     @Override
-    public StudentDto createStudent(StudentDto studentDto) {
-        return null;
+    public Student create(Student student) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String sql = "INSERT INTO students (name, email) VALUES (?, ?)";
+
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, student.getName());
+            ps.setString(2, student.getEmail());
+            return ps;
+        }, keyHolder);
+
+        student.setId(                            // 3. set the ID on the student object
+                ((Number) keyHolder.getKeys().get("id")).longValue()
+        );
+
+        return student;
     }
 
     @Override
-    public List<StudentDto> selectAll() {
+    public List<Student> findAll() {
         return List.of();
     }
 
     @Override
-    public StudentDto update(StudentDto studentDto, Long id) {
+    public Student update(Student student, Long id) {
         return null;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return false;
     }
 }

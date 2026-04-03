@@ -9,7 +9,8 @@ import java.util.Optional;
 public interface StudentDao {
 
     Optional<Student> findById(Long id);
-    StudentDto createStudent(StudentDto studentDto);
-    List<StudentDto> selectAll();
-    StudentDto update(StudentDto studentDto, Long id);
+    Student create(Student student);
+    List<Student> findAll();
+    Student update(Student student, Long id);
+    boolean delete(Long id);
 }
