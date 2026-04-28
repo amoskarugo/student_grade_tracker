@@ -5,7 +5,7 @@ import com.app.studentgradetracker.Dao.StudentDao;
 import com.app.studentgradetracker.Mappers.impl.StudentMapper;
 import com.app.studentgradetracker.dto.StudentDto;
 import com.app.studentgradetracker.model.Student;
-import com.app.studentgradetracker.repository.StudentRepo;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,14 @@
 package com.app.studentgradetracker.Exception;
 
-public class ResourceNotFoundException extends RuntimeException{
+import org.springframework.http.HttpStatus;
 
-    public ResourceNotFoundException(String message){
-        super(message);
+public class ResourceNotFoundException extends ApiException{
+
+    public ResourceNotFoundException(String resource, Long id){
+        super(resource + " not found with id: " + id, HttpStatus.NOT_FOUND);
+    }
+
+    public ResourceNotFoundException(String resource, String field, String value) {
+        super(resource + " not found with " + field + ": " + value, HttpStatus.NOT_FOUND);
     }
 }

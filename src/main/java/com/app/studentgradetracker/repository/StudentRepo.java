@@ -22,10 +22,6 @@ public class StudentRepo implements StudentDao {
     private final JdbcTemplate jdbcTemplate;
     private final StudentSqlRowMapper studentSqlRowMapper;
 
-    // Handles ResultSet → Student entity (separate from StudentMapper)
-
-
-
 
     @Override
     public Optional<Student> findById(Long id) {
