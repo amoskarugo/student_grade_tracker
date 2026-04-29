@@ -4,10 +4,12 @@ import com.app.studentgradetracker.dto.CourseDto;
 import com.app.studentgradetracker.model.Course;
 import org.modelmapper.ModelMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class CourseMapper implements Mapper<CourseDto, Course>, RowMapper<Course> {
 
     private final ModelMapper modelMapper;
