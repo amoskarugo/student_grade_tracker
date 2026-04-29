@@ -4,7 +4,7 @@ import com.app.studentgradetracker.Dao.StudentDao;
 import com.app.studentgradetracker.Exception.DatabaseException;
 import com.app.studentgradetracker.Exception.DuplicateResourceException;
 import com.app.studentgradetracker.Mappers.impl.StudentMapper;
-import com.app.studentgradetracker.model.SqlStaments.SqlQueries;
+import com.app.studentgradetracker.constants.SqlQueries;
 import com.app.studentgradetracker.model.Student;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

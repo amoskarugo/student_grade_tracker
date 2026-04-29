@@ -1,4 +1,4 @@
-package com.app.studentgradetracker.model.SqlStaments;
+package com.app.studentgradetracker.constants;
 
 public final class SqlQueries {
 

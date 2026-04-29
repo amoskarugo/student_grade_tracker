@@ -2,6 +2,7 @@ package com.app.studentgradetracker.ApiResponse;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -10,8 +11,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder(access = AccessLevel.PRIVATE)
 public class ApiResponse<T> {
 
     private final boolean success;
