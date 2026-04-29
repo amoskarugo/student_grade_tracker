@@ -19,4 +19,5 @@ public class StudentDto {
     @NotBlank(message = "email is required")
     @Email(message = "must be a valid email")
     private String email;
+    private  Long id;
 }

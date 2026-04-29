@@ -11,8 +11,9 @@ public interface StudentDao {
     Optional<Student> findById(Long id);
     Student create(Student student);
     List<Student> findAll();
-    int update(Student student, Long id);
+    void update(Student student);
     int delete(Long id);
     Optional<Student> findByEmail(String email);
     boolean           existsByEmail(String email);
+    int deleteById(Long id);
 }

@@ -1,6 +1,7 @@
 package com.app.studentgradetracker.ApiResponse;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -10,12 +11,13 @@ import java.util.List;
 
 @Getter
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
     private final boolean success;
     private final String message;
     private final T data;
-    private final List<String> errors;
+    private final List<String> error;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private final LocalDateTime timestamp;
@@ -48,7 +50,7 @@ public class ApiResponse<T> {
                 .message(message)
                 .timestamp(LocalDateTime.now())
                 .status(status)
-                .errors(errors)
+                .error(errors)
                 .build();
     }
 }

@@ -18,7 +18,7 @@ public final class SqlQueries {
                 "DELETE FROM students WHERE id = ?";
 
         public static final String UPDATE =
-                "UPDATE students SET name = ?, email = ? WHERE is = ?";
+                "UPDATE students SET name = ?, email = ? WHERE id = ?";
         public static final String INSERT =
                 "INSERT INTO students (name, email) VALUES (?, ?)";
 

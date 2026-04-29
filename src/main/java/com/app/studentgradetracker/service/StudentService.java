@@ -2,6 +2,7 @@ package com.app.studentgradetracker.service;
 
 
 import com.app.studentgradetracker.Dao.StudentDao;
+import com.app.studentgradetracker.Exception.ConflictException;
 import com.app.studentgradetracker.Exception.ResourceNotFoundException;
 import com.app.studentgradetracker.Mappers.impl.StudentMapper;
 import com.app.studentgradetracker.dto.StudentDto;
@@ -24,8 +25,14 @@ public class StudentService {
 
 
 //    public StudentDto
-    public Student save(Student student){
-        return studentDao.create(student);
+
+    public StudentDto create(StudentDto dto) {
+        if (studentDao.existsByEmail(dto.getEmail()))
+            throw new ConflictException("Student already exists with email: " + dto.getEmail());
+
+        Student saved = studentDao.create(studentMapper.mapTo(dto));
+        log.info("Created student with id: {}", saved.getId());
+        return studentMapper.mapFrom(saved);
     }
 
     public List<StudentDto> findAll(){
@@ -37,6 +44,29 @@ public class StudentService {
         return studentDao.findById(id)
                 .map(studentMapper::mapFrom)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", id));
+    }
+
+
+    public StudentDto update(Long id, StudentDto dto) {
+        Student existing = studentDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", id));
+
+        if (!existing.getEmail().equals(dto.getEmail()) &&
+                studentDao.existsByEmail(dto.getEmail()))
+            throw new ConflictException("Email already in use: " + dto.getEmail());
+
+        existing.setName(dto.getName());
+        existing.setEmail(dto.getEmail());
+        studentDao.update(existing);
+        log.info("Updated student with id: {}", id);
+        return studentMapper.mapFrom(existing);
+    }
+
+    public void delete(Long id) {
+        studentDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", id));
+        studentDao.deleteById(id);
+        log.info("Deleted student with id: {}", id);
     }
 
 }

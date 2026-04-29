@@ -72,9 +72,9 @@ public class StudentRepo implements StudentDao {
     }
 
     @Override
-    public int update(Student student, Long id) {
+    public void update(Student student) {
         try {
-            return jdbcTemplate.update(SqlQueries.Student.UPDATE,
+            jdbcTemplate.update(SqlQueries.Student.UPDATE,
                     student.getName(), student.getEmail(), student.getId());
         } catch (DuplicateKeyException e) {
             throw new DuplicateResourceException("Email already in use: " + student.getEmail());
@@ -117,6 +117,16 @@ public class StudentRepo implements StudentDao {
         } catch (DataAccessException e) {
             log.error("Error checking email {}: {}", email, e.getMessage());
             throw new DatabaseException("Failed to check email: " + email, e);
+        }
+    }
+
+    @Override
+    public int deleteById(Long id) {
+        try {
+            return jdbcTemplate.update(SqlQueries.Student.DELETE_BY_ID, id);
+        } catch (DataAccessException e) {
+            log.error("Error deleting student {}: {}", id, e.getMessage());
+            throw new DatabaseException("Failed to delete student with id: " + id, e);
         }
     }
 }
