@@ -5,10 +5,12 @@ import com.app.studentgradetracker.dto.GradeDto;
 import com.app.studentgradetracker.model.Grade;
 import org.modelmapper.ModelMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class GradeMapper implements Mapper<GradeDto, Grade>, RowMapper<Grade> {
 
     private final ModelMapper modelMapper;

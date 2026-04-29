@@ -12,10 +12,10 @@ public class GradeDto {
     private Long   id;
 
     @NotNull(message = "Student ID is required")
-    private Long   studentId;
+    private Long   student_id;
 
     @NotNull(message = "Course ID is required")
-    private Long   courseId;
+    private Long   course_id;
 
     @NotNull(message = "Grade is required")
     @DecimalMin(value = "0.0", message = "Grade must be at least 0")
